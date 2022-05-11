@@ -1,20 +1,26 @@
+import PIL.Image
 import cv2
 import mediapipe as mp
 import numpy as np
 from PIL import Image
 from PIL import ImageTk
+import tkinter
 
 
 class FashionPose():
 
-    def __init__(self, show_webcam=True, detection_confidence=0.3):
+    def __init__(self, show_webcam=True, detection_confidence=0.3, outfit_type='Def'):
 
         self.show_webcam = show_webcam
+
+        self.outfit_type = outfit_type
 
         self.initialize_model(detection_confidence)
 
         # Read skeleton images
-        self.read_skeleton_images()
+        print(self.outfit_type)
+        if self.outfit_type == 'Skeleton' or self.outfit_type == 'Def':
+            self.read_skeleton_images()
 
     def __call__(self, image):
 
@@ -42,7 +48,6 @@ class FashionPose():
         # Extract background
         input_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        image = Image
 
         input_image.flags.writeable = False
         pose_landmarks = self.pose_estimation.process(input_image).pose_landmarks
@@ -55,7 +60,6 @@ class FashionPose():
                                             for landmark in pose_landmarks.landmark], dtype=np.float32)
 
     def draw_skeleton(self, img):
-
         if self.show_webcam:
             output_img = img.copy()
         else:
@@ -112,11 +116,11 @@ class FashionPose():
 
     def read_skeleton_images(self):
 
-        self.bone_image = cv2.imread("images/bone.png")
-        self.foot_image = cv2.imread("images/foot.png")
-        self.hand_image = cv2.imread("images/hand.png")
-        self.torso_image = cv2.imread("images/torso.png")
-        self.skull_image = cv2.imread("images/skull.png")
+        self.bone_image = cv2.imread("images/skeleton/bone.png")
+        self.foot_image = cv2.imread("images/skeleton/foot.png")
+        self.hand_image = cv2.imread("images/skeleton/hand.png")
+        self.torso_image = cv2.imread("images/skeleton/torso.png")
+        self.skull_image = cv2.imread("images/skeleton/skull.png")
 
 
 skull_indices = [6, 3, 10, 9]
@@ -156,5 +160,5 @@ def select_skull_landmark_pixels():
 
 if __name__ == '__main__':
     # Read pumpkin image
-    skull_image = cv2.imread("images/skull.png")
+    skull_image = cv2.imread("images/skeleton/skull.png")
     select_skull_landmark_pixels()

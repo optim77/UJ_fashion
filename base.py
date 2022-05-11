@@ -5,15 +5,14 @@ from PIL import Image, ImageTk
 show_webcam = True
 
 
-# Initialize ExorcistFace class
-draw_skeleton = FashionPose(show_webcam)
+def run_outfit(outfit):
+    # Initialize ExorcistFace class
+    draw_skeleton = FashionPose(show_webcam, outfit_type='Skeleton')
+    # Initialize webcam
+    cap = cv2.VideoCapture(0)
 
-# Initialize webcam
-cap = cv2.VideoCapture(0)
-cv2.namedWindow("Fashion pose", cv2.WINDOW_NORMAL)
+    draw_skeleton.outfit_type = outfit
 
-
-def run_skeleton():
     while cap.isOpened():
 
         # Read frame
@@ -33,3 +32,5 @@ def run_skeleton():
         cv2.imshow("Exorcist face", skeleton_image)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+    cv2.destroyAllWindows()

@@ -21,6 +21,10 @@ class FashionPose():
         print(self.outfit_type)
         if self.outfit_type == 'Skeleton' or self.outfit_type == 'Def':
             self.read_skeleton_images()
+        elif self.outfit_type == 'Astronaut':
+            self.read_astronaut_images()
+        elif self.outfit_type == 'Jacket':
+            self.read_jacket_images()
 
     def __call__(self, image):
 
@@ -121,6 +125,20 @@ class FashionPose():
         self.hand_image = cv2.imread("images/skeleton/hand.png")
         self.torso_image = cv2.imread("images/skeleton/torso.png")
         self.skull_image = cv2.imread("images/skeleton/skull.png")
+
+    def read_astronaut_images(self):
+        self.bone_image = cv2.imread("images/astronaut/leghandsbg.png")
+        self.foot_image = cv2.imread("images/astronaut/leghandsbg.png")
+        self.hand_image = cv2.imread("images/skeleton/leghandsbg.png")
+        self.torso_image = cv2.imread("images/astronaut/torsobg.png")
+        self.skull_image = cv2.imread("images/astronaut/headbg.png")
+
+    def read_jacket_images(self):
+        self.bone_image = cv2.imread("images/jacket/kurtka_sleeve.png")
+        self.foot_image = cv2.imread("images/jacket/kurtka_sleeve.png")
+        self.hand_image = cv2.imread("images/jacket/kurtka_sleeve.png")
+        self.torso_image = cv2.imread("images/jacket/kurtka_torso.png")
+        self.skull_image = cv2.imread("images/jacket/kurtka_sleeve.png")
 
 
 skull_indices = [6, 3, 10, 9]

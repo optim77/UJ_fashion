@@ -16,5 +16,5 @@ def load_background(button, bg_image):
 	elif button == ord("u"):
 		bg_image = cv2.imread('images/backgrounds/7.png')
 	elif button == ord("i"):
-		bg_image = cv2.imread('images/backgrounds/1.webp')
+		bg_image = cv2.VideoCapture("images/backgrounds/1.gif")
 	return bg_image
